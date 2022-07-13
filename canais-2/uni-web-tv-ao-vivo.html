@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+<head>
+<script src="https://cdn.jsdelivr.net/npm/clappr@latest/dist/clappr.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/clappr-chromecast-plugin@latest/dist/clappr-chromecast-plugin.min.js"></script>
+<SCRIPT LANGUAGE="JavaScript">
+<!-- Disable
+function disableselect(e){
+return false
+}
+
+function reEnable(){
+return true
+}
+
+//if IE4+
+document.onselectstart=new Function ("return false")
+document.oncontextmenu=new Function ("return false")
+//if NS6
+if (window.sidebar){
+document.onmousedown=disableselect
+document.onclick=reEnable
+}
+//-->
+</script>
+<title>UNI WEB TV - Ao Vivo</title>
+<style>
+body {
+background-color: #000000
+}
+</style>
+</head>
+<body>
+<h1 style="text-align:center"><span style="color:#FFFFFF">UNI WEB TV - Online - 24 Horas - Ao Vivo</span></h1>
+<center><div id="player"></div>
+<script>
+      var player = new Clappr.Player({
+        source: 'https://stmv1.srvif.com/unifm/unifm/chunklist_w2088924163.m3u8',
+        width: '640',
+        height: '400',
+        plugins: [ChromecastPlugin],
+        parentId: '#player',
+        chromecast: {
+          appId: '9DFB77C0',
+          contentType: 'video/mp4',
+          media: {
+            type: ChromecastPlugin.Movie,
+            title: 'Awesome Hot Air Balloon Slackline',
+            subtitle: 'You won\'t get much closer to Skylining than this!'
+          },
+          customData: {
+            licenseURL: 'http://widevine/yourLicenseServer'
+          }
+        }
+      });
+</script>
+</center>      
+</body>
+</html>
