@@ -1,0 +1,567 @@
+/*
+Project Name: Embedder
+Developed By: Riverlab
+Version: 1.0.0.0
+*/
+/* Fonts */
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@100;200;300;400;500;600;700;800;900&display=swap');
+
+/* Vars */
+:root {
+    --font-family: 'Montserrat', 'sans-serif';
+    --color-001: #ce1300;
+    --color-002: #1d1d1d;
+    --color-003: #2d2d2d;
+    --transition: .2s all ease-in-out;
+}
+
+/* Css Reset */
+body {
+    padding: 0;
+    margin: 0;
+    background: var(--color-002);
+    font-family: var(--font-family);
+    color: #fff;
+}
+a {
+    color: inherit;
+    text-decoration: none;
+}
+* {
+    box-sizing: border-box;
+    outline: none;
+}
+
+/* Player */
+.player_screen {
+    width: 100%;
+    height: 100vh;
+    position: relative;
+    overflow: hidden;
+}
+.embedder_info {
+    position: absolute;
+    top: 0;
+    left: 20px;
+    background: #631212;
+    width: 50px;
+    height: 40px;
+    font-size: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-bottom-left-radius: 10px;
+    border-bottom-right-radius: 10px;
+    cursor: pointer;
+    z-index: 1;
+}
+.player_bg_container {
+    background: var(--color-002);
+}
+.player_bg {
+    width: 100%;
+    height: 100%;
+    background-size: cover!important;
+    position: absolute;
+    top: 0;
+    left: 0;
+    filter: blur(7px);
+    opacity: .05;
+    z-index: 1;
+}
+.without_players_warning {
+    width: 500px;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 1;
+}
+.warning_title {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.warning_title i {
+    font-size: 40px;
+}
+.warning_title span {
+    font-size: 20px;
+    text-transform: uppercase;
+    font-weight: 600;
+    margin-left: 10px;
+}
+.warning_msg {
+    padding: 10px;
+    text-align: center;
+}
+.warning_msg p {
+    margin: 0;
+    padding: 0;
+    font-weight: 400;
+    font-size: 14px;
+}
+.players_select_container {
+    width: 100%;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    top: 0;
+    z-index: 2;
+    overflow: hidden;
+    transition: .5s all ease-in-out;
+}
+.players_select_container.hidden {
+    top: -100%;
+}
+.select_languages {
+    font-size: 19px;
+    text-align: center;
+    margin-bottom: 20px;
+    position: relative;
+    z-index: 2;
+}
+.languages_selector {
+    display: flex;
+    justify-content: center;
+    margin-top: 10px;
+}
+.select_language {
+    padding: 15px 40px;
+    background: var(--color-003);
+    font-size: 13px;
+    margin-right: 10px;
+    border-radius: 50px;
+    cursor: pointer;
+    transition: .3s all ease-in-out;
+    text-transform: uppercase
+    ;
+}
+.select_language.active,
+.select_language:hover {
+    background: var(--color-001);
+}
+.select_language:last-child {
+    margin-right: 0;
+}
+.players_select {
+    width: 350px;
+    height: 300px;
+    overflow: hidden;
+    position: relative;
+    z-index: 2;
+}
+.player_select_header {
+    text-align: center;
+    font-size: 18px;
+    font-weight: 600;
+    margin-bottom: 20px;
+}
+.players_select_items {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    transition: .2s all ease-in-out;
+    opacity: 0;
+}
+.players_select_items.visible {
+    position: absolute;
+    top: 0;
+    left: 0;
+    opacity: 1;
+}
+.player_select_item {
+    width: 350px;
+    height: 60px;
+    margin-bottom: 15px;
+    background: #222;
+    display: flex;
+    align-items: center;
+    border-radius: 10px;
+    padding: 0 10px;
+    cursor: pointer;
+    transition: .2s all ease-in-out;
+    box-shadow: 0 0 5px rgba(0, 0, 0, .05);
+}
+.player_select_item:hover {
+    background: var(--color-003);
+    box-shadow: none;
+}
+.player_select_item:last-child {
+    margin-bottom: 0;
+}
+.player_select_icon {
+    font-size: 40px;
+    display: flex;
+    align-items: center;
+}
+.player_select_name {
+    margin-left: 20px;
+    font-size: 18px;
+    font-weight: 400;
+}
+
+/* Player Container */
+.changeOptions {
+    background: var(--color-001);
+    font-size: 13px;
+    padding: 15px 20px;
+    position: absolute;
+    top: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    border-bottom-left-radius: 10px;
+    border-bottom-right-radius: 10px;
+    cursor: pointer;
+    transition: .2s all ease;
+    z-index: 5;
+}
+.changeOptions:hover {
+    opacity: .8;
+}
+.changeOptions.hidden {
+
+}
+.changeEpisode {
+    background: var(--color-001);
+    font-size: 13px;
+    padding: 15px 20px;
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+    cursor: pointer;
+    transition: .2s all ease;
+    z-index: 5;
+}
+.changeEpisode:hover {
+    opacity: .8;
+}
+.changeEpisode.hidden {
+
+}
+.player_container {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    transition: .5s all ease-in-out;
+}
+.player_container.visible {
+    top: 0;
+}
+.player_container .infra iframe {
+    width: 100%;
+    height: 100vh;
+}
+
+.player_loading {
+    width: 100%;
+    height: 100vh;
+    position: absolute;
+    top: 0;
+    left: 0;
+    background: rgba(0, 0, 0, .8);
+    z-index: 9;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 40px;
+}
+.player_loading i {
+    animation: linear .5s rotateLoader infinite;
+}
+.seasonepisodeSelector {
+    position: absolute;
+    bottom: 20px;
+    left: 20px;
+    width: calc(100% - 40px);
+    z-index: 2;
+    overflow: hidden;
+    transition: .2s all ease-in-out;
+}
+.seasonepisodeSelector.hidden {
+    bottom: -500px;
+}
+.seasonSelector {
+    width: 100%;
+    margin-bottom: 20px;
+}
+.seasonSelectorTitle {
+    font-size: 20px;
+    font-weight: 600;
+    height: 30px;
+    margin-right: 20px;
+    margin-top: 7px;
+}
+.seasonOption {
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: #fff;
+    color: #000;
+    border-radius: 50px;
+    font-weight: 700;
+    margin-left: 15px;
+    transition: .2s all ease;
+}
+.seasonOption:hover,
+.seasonOption.active {
+    background: var(--color-001);
+    color: #fff;
+    cursor: pointer;
+}
+.episodeSelector {
+    display: none;
+}
+.episodeSelector.visible {
+    display: block;
+}
+.episodeOption {
+    width: 140px;
+    height: 80px;
+    overflow: hidden;
+    position: relative;
+    border-radius: 15px;
+    margin-right: 10px;
+}
+.episodeOption::before {
+    content: '';
+    display: block;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, .5);
+    z-index: 1;
+    border: 3px solid rgba(255, 255, 255, .1);
+    border-radius: 15px;
+    box-sizing: border-box;
+    transition: .2s all ease;
+    cursor: pointer;
+}
+.episodeOption:hover::before,
+.episodeOption.active::before {
+    border-color: var(--color-001);
+}
+.episodeOption img {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+.episodeNum {
+    white-space: nowrap;
+    position: absolute;
+    z-index: 2;
+    left: 50%;
+    transform: translateX(-50%);
+    bottom: 20px;
+    font-size: 13px;
+    transition: .3s all ease-in-out;
+    pointer-events: none;
+}
+.episodeOption:hover .episodeNum,
+.episodeOption.active .episodeNum {
+    bottom: 35px;
+}
+
+/* TvChannels */
+.tvchannels_select {
+    width: 100%;
+    height: 100vh;
+    padding: 30px;
+}
+.tvchannel_container {
+    display: flex;
+    flex-wrap: wrap;
+}
+.tvchannels_title {
+    width: 100%;
+    text-align: center;
+    font-size: 25px;
+    font-weight: 600;
+    margin-bottom: 30px;
+}
+.tvchannels_select select,
+.tvchannels_select .selectize-control {
+    width: 100%;
+    margin-bottom: 20px;
+}
+.tvchannels_select .selectize-controle.single .selectize-input.input-active,
+.tvchannels_select .selectize-input {
+    background: rgba(0, 0, 0, .2)!important;
+    border: none;
+    color: #fff;
+    padding: 10px;
+}
+.tvchannels_select .selectize-input.focus {
+    box-shadow: none!important;
+}
+.tvchannels_select .selectize-dropdown {
+    background-color: #141414;
+    color: #999;
+}
+.tvchannels_select .selectize-dropdown .selectize-dropdown-content .option {
+    padding: 10px;
+}
+.tvchannels_select .selectize-dropdown .selectize-dropdown-content .option.active {
+    background: #222;
+    color: #fff;
+}
+.tvchannel_item {
+    width: calc(100% / 8 - 26.5px);
+    margin-bottom: 30px;
+    margin-right: 30px;
+    overflow: hidden;
+}
+.tvchannel_item:nth-child(8n+8) {
+    margin-right: 0;
+}
+.tvchannel_item_link {
+    border-radius: 5px;
+    display: block;
+    background: rgba(0, 0, 0, .2);
+    padding: 20px;
+    position: relative;
+    padding-top: 86%;
+}
+.tvchannel_item img {
+    width: 75%;
+    height: 75%;
+    object-fit: cover;
+    display: block;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+.tvchannel_name {
+    display: block;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    text-align: center;
+    padding: 10px 0 0;
+}
+
+/* Animation - RotateLoader */
+@keyframes rotateLoader {
+    from {
+        transform: rotate(0deg);
+    }
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+/* Banner */
+.embedder_especial {
+    width: 100%;
+    height: 100vh;
+    display: none;
+    align-items: center;
+    justify-content: center;
+    padding: 10px;
+    position: fixed;
+    top: 0;
+    left: 0;
+    background: rgba(0, 0, 0, .3);
+    z-index: 99;
+}
+.embedder_especial_content {
+    width: 350px;
+    padding: 10px;
+    background: var(--color-002);
+    border-radius: 15px;
+    position: relative;
+}
+.embedder_especial_close,
+.embedder_especial_close2 {
+    position: absolute;
+    top: -10px;
+    right: -15px;
+    width: 30px;
+    height: 30px;
+    background: #fff;
+    border-radius: 50%;
+    color: var(--color-001);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 21px;
+    cursor: pointer;
+    transition: 1s all ease;
+}
+.embedder_especial_close:hover,
+.embedder_especial_close2:hover {
+    transform: rotate(360deg);
+}
+
+/* Media Queries */
+/* 768px */
+@media (max-width: 768px) {
+    .tvchannel_item {
+        width: calc(100% / 4 - 23px);
+    }
+    .tvchannel_item:nth-child(8n+9) {
+        margin-right: 30px;
+    }
+
+    .tvchannel_item:nth-child(4n+5) {
+        margin-right: 0;
+    }
+}
+
+/* 425px */
+@media (max-width: 425px) {
+    .tvchannel_item {
+        width: calc(100% / 2 - 15px);
+    }
+    .tvchannel_item:nth-child(4n+5) {
+        margin-right: 30px;
+    }
+
+    .tvchannel_item:nth-child(2n+3) {
+        margin-right: 0;
+    }
+}
+
+/* 375px */
+@media (max-width: 375px) {
+    .select_language {
+        padding: 15px 30px;
+    }
+    .players_select {
+        width: 95%;
+    }
+    .players_select_items {
+        width: 100%;
+    }
+    .player_select_item {
+        width: 100%;
+    }
+    .embedder_especial {
+        padding: 30px;
+    }
+}
+
+/* 560px max-height */
+@media (max-height: 560px) {
+    .players_select_container {
+        padding-top: 50px;
+        justify-content: flex-start;
+    }
+}

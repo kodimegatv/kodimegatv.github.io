@@ -1,0 +1,37 @@
+/* Flexbox Framework (Lancaster.io) */
+.fbox {
+    display: flex;
+}
+.fbox_inline {
+    display: inline-flex;
+}
+.fbox_column {
+    flex-direction: column;
+}
+.fbox_align_center {
+    align-items: center;
+}
+.fbox_align_top {
+    align-items: flex-start;
+}
+.fbox_align_bottom {
+    align-items: flex-end;
+}
+.fbox_align_stretch {
+    align-items: stretch;
+}
+.fbox_space_between {
+    justify-content: space-between;
+}
+.fbox_center {
+    justify-content: center;
+}
+.fbox_right {
+    justify-content: flex-end;
+}
+.fbox_left {
+    justify-content: flex-start;
+}
+.fbox_wrap {
+    flex-wrap: wrap;
+}
